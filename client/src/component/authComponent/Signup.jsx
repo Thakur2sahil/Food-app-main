@@ -6,15 +6,45 @@ import "react-toastify/dist/ReactToastify.css";
 
 function Signup() {
   const [data, setData] = React.useState({});
-  const [role, setRole] = React.useState("user");
   const [showPassword, setShowPassword] = React.useState(false);
   const [image, setImage] = React.useState(null);
   const navigate = ReactRouter.useNavigate();
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    setData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e && e.preventDefault();
+
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/api/auth/signup`,
+        {
+          payload: { ...data },
+          image: image,
+        },
+        {
+          headers: {
+            "Content-Type": "multipart/form-data", // Tell axios to send a file
+          },
+        }
+      );
+    } catch (error) {
+      console.log(error.response.data.message);
+    }
+  };
+
   return (
     <div className="flex justify-center items-center h-screen bg-gray-100">
       <div className="bg-white p-8 rounded shadow-md w-full max-w-md text-center">
         <h2 className="text-2xl font-bold mb-6">Signup</h2>
-        <form>
+        <form onSubmit={handleSubmit}>
           <input
             type="text"
             name="fullname"
@@ -97,15 +127,6 @@ function Signup() {
             onChange={(e) => setImage(e.target.files[0])}
             className="mb-4 p-2 w-full border rounded"
           />
-          <select
-            value={role}
-            name="role"
-            onChange={(e) => setRole(e.target.value)}
-            className="mb-4 p-2 w-full border rounded"
-          >
-            <option value="user">User</option>
-            <option value="admin">Admin</option>
-          </select>
           <button
             type="submit"
             className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition-colors"
@@ -114,7 +135,7 @@ function Signup() {
           </button>
           <button
             type="button"
-            onClick={() => navigate("/")}
+            onClick={() => navigate("/login")}
             className="w-full mt-2 bg-gray-500 text-white py-2 rounded hover:bg-gray-600 transition-colors"
           >
             Already have an account? Login

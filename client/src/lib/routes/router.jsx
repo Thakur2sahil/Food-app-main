@@ -4,11 +4,11 @@ import Signup from "../../component/authComponent/Signup";
 import UserNavber from "../../component/Navbar/UserNavber";
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/login",
     element: <Login />,
   },
   {
-    path: "/nav",
+    path: "/navbar",
     element: <UserNavber />,
   },
   {
