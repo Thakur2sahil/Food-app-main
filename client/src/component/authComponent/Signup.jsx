@@ -35,6 +35,10 @@ function Signup() {
           },
         }
       );
+      if(response)
+      {
+        navigate(`/login`)
+      }
     } catch (error) {
       console.log(error.response.data.message);
     }

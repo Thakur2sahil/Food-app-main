@@ -2,9 +2,12 @@ import axios from "axios";
 import * as React from "react";
 import * as ReactRouter from "react-router-dom";
 import * as ReactToast from "react-toastify";
+import { contextapi } from "../../lib/context/AuthContext";
 
 export default function Login() {
-  const [data, setData] = React.useState();
+  const { setData } = React.useContext(contextapi);
+  const [dataLocal, setDataLocal] = React.useState();
+  const navigate = ReactRouter.useNavigate();
 
   const handleSubmit = async (e) => {
     e && e.preventDefault();
@@ -13,13 +16,15 @@ export default function Login() {
       const response = await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}/api/auth/login`,
         {
-          payload: { ...data },
+          payload: { ...dataLocal },
         }
       );
 
       if (response) {
-        localStorage.setItem("token",response.data.token)
-        localStorage.setItem("islogged",true)
+        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("islogged", true);
+        setData(response.data);
+        navigate(`/navbar`);
       }
     } catch (error) {
       console.log(error.response.data.message);
@@ -29,7 +34,7 @@ export default function Login() {
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    setData((prev) => ({
+    setDataLocal((prev) => ({
       ...prev,
       [name]: value,
     }));
