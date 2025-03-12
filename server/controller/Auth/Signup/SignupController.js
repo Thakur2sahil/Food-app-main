@@ -1,6 +1,5 @@
 import { User } from "../../../modal/Auth/UserModal.js";
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
 
 const signup = async (req, res) => {
   const { payload } = req.body;
