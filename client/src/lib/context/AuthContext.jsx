@@ -2,11 +2,13 @@ import axios from "axios";
 import * as React from "react";
 import { toast } from "react-toastify";
 
-export const contextapi = React.createContext();
+export const authContext = React.createContext();
+
+export const useAuth = () => React.useContext(authContext);
 
 export const Myprovider = ({ children }) => {
-  const [data, setData] = React.useState({});
-  const token = localStorage.getItem('token')
+  const [user, setUser] = React.useState({});
+  const token = localStorage.getItem("token");
   const isLogged = localStorage.getItem("islogged");
 
   React.useEffect(() => {
@@ -20,7 +22,7 @@ export const Myprovider = ({ children }) => {
             }
           );
           if (response.data) {
-            setData(response.data.data);
+            setUser(response.data.data);
           }
         } catch (error) {
           if (
@@ -41,13 +43,13 @@ export const Myprovider = ({ children }) => {
     }
   }, [token]);
   return (
-    <contextapi.Provider
+    <authContext.Provider
       value={{
-        data,
-        setData,
+        user,
+        setUser,
       }}
     >
       {children}
-    </contextapi.Provider>
+    </authContext.Provider>
   );
 };

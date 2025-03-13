@@ -2,10 +2,10 @@ import axios from "axios";
 import * as React from "react";
 import * as ReactRouter from "react-router-dom";
 import * as ReactToast from "react-toastify";
-import { contextapi } from "../../lib/context/AuthContext";
+import { useAuth } from "../../lib/context/AuthContext";
 
 export default function Login() {
-  const { setData } = React.useContext(contextapi);
+  const { setUser } = useAuth();
   const [dataLocal, setDataLocal] = React.useState();
   const navigate = ReactRouter.useNavigate();
 
@@ -23,7 +23,7 @@ export default function Login() {
       if (response) {
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("islogged", true);
-        setData(response.data);
+        setUser(response.data);
         navigate(`/navbar`);
       }
     } catch (error) {
