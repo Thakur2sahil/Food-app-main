@@ -28,6 +28,8 @@ function AdminSideBar() {
             )}
           </button>
         </div>
+        <div className="flex gap-4">
+        <div className="hidden md:flex  gap-5">
         <nav className="space-y-6 w-full">
           {/* <ReactRouter.Link to="/admin/adminhome" className="block text-lg hover:bg-gray-700 px-4 py-2 transition duration-200">
                         <h2>Home</h2>
@@ -80,6 +82,16 @@ function AdminSideBar() {
             <h2>Logout</h2>
           </ReactRouter.Link>
         </nav>
+        </div>
+        </div>
+        {/* {isMenuOpen && (
+              <>
+                <div className="flex flex-col items-center pb-3 pt-2 pr-2 w-[50vw] bg-black fixed right-0">
+                  <div className="md:hidden  text-white ">
+                    </div>
+                    </div>
+                    </>
+        )} */}
       </div>
     </div>
   );

@@ -15,6 +15,9 @@ export default function UserNavber() {
     localStorage.clear();
     navigate("/navbar");
   };
+ 
+  console.log(user);
+  
 
   return (
     <>
@@ -73,7 +76,7 @@ export default function UserNavber() {
                       User Profile
                     </ReactRouter.Link>
                   </span>
-                  {user ? (
+                  {user.image !==null ? (
                     <img
                       src={`${import.meta.env.VITE_BACKEND_URL}/${user.image}`}
                       className="w-12 h-12 rounded-full"

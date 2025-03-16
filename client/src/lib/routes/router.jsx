@@ -1,26 +1,26 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from 'react-router-dom'; // No need to import Router here
+import UserNavber from "../../component/Navbar/UserNavbar/UserNavber";
 import Login from "../../component/authComponent/Login";
 import Signup from "../../component/authComponent/Signup";
-import UserNavber from "../../component/Navbar/UserNavbar/UserNavber";
-import AdminSideBar from "../../component/Navbar/AdminNavbar/AdminSideBar";
+import AllProduct from '../../component/AdminPanel/AllProduct';
+import NewProduct from '../../component/AdminPanel/NewProduct';
+import AdminDashBoard from '../../component/AdminPanel/AdminDashBoard';
 
-const AppRoutes = () => {
+const AppRouter = () => {
   return (
     <Routes>
-      {/* Public Routes */}
+      {/* Define your route paths properly */}
+      <Route path="/navbar" element={<UserNavber />} />
+      <Route path="/admin" element={<AdminDashBoard />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
-
-      {/* Admin Routes (Protected) */}
-      <Route path="/admin-dashboard"
-        element={<ProtectedRoute requiredRole="admin"><AdminSideBar /></ProtectedRoute>}
-      />
-
-      {/* Navbar Routes */}
-      <Route path="/navbar" element={<UserNavber />} />
-      {/* <Route path="/sidenav" element={<AdminSideBar />} /> */}
+      <Route path="/allproduct" element={<AllProduct />} />
+      <Route path="/newproduct" element={<NewProduct />} />
+      
+      {/* Handle a fallback route if needed */}
+      <Route path="*" element={<Navigate to="/login" />} />
     </Routes>
   );
 };
 
-export default AppRoutes;
+export default AppRouter;

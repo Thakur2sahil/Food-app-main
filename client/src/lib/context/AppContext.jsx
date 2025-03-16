@@ -8,7 +8,7 @@ export const useApp = () => {
 
 const Appprovider = ({ children }) => {
 
-   const [currStateModal, setCurrStateModal] = useState({
+   const [currStateModal, setCurrStateModal] = React.useState({
      error: false,
      success: false,
      loading: false,
