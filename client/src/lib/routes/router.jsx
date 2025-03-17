@@ -8,6 +8,10 @@ import AdminDashBoard from '../../component/AdminPanel/AdminDashBoard';
 import ProtectedRoute from './ProtectedRoute/ProtectedRoute';
 import { useAuth } from '../context/AuthContext';
 import UpdateProduct from '../../component/AdminPanel/UpdateProduct';
+import NotAuthorized from '../NotAuthorized/NotAuthorized';
+import NotFound from '../NotFound/NotFOund';
+import UserLayout from '../../component/UserPanel/UserLayout';
+import About from '../../component/UserPanel/About';
 
 const AppRouter = () => {
   const { user , token } = useAuth();
@@ -19,20 +23,18 @@ const AppRouter = () => {
         <Route path="/signup" element={!token ? <Signup /> : <Navigate to={userRole === 'admin' ? '/adminhome' : '/navbar'} />} />
           <Route path="/login" element={!token ? <Login /> : <Navigate to={userRole === 'admin' ? '/adminhome' : '/navbar'} />} />
       
-      {/* Define your route paths properly */}
+      {/* Admin routes*/}
        <Route path="/adminhome" element={<ProtectedRoute requiredRole="admin"><AdminDashBoard><NewProduct /></AdminDashBoard></ProtectedRoute>} />
        <Route path="/all-product" element={<ProtectedRoute requiredRole="admin"><AdminDashBoard><AllProduct /></AdminDashBoard></ProtectedRoute>} />
        <Route path="/update-product" element={<ProtectedRoute requiredRole="admin"><AdminDashBoard><UpdateProduct /></AdminDashBoard></ProtectedRoute>} />
 
+      {/* User routes */}
       <Route path="/navbar" element={<UserNavber />} />
-      {/* <Route path="/admin" element={<AdminDashBoard />} /> */}
-      {/* <Route path="/login" element={<Login />} />
-      <Route path="/signup" element={<Signup />} /> */}
-      {/* <Route path="/allproduct" element={<AllProduct />} />
-      <Route path="/newproduct" element={<NewProduct />} /> */}
+      <Route path="/about" element={<ProtectedRoute requiredRole="user"><UserLayout><About /></UserLayout></ProtectedRoute>} />
       
       {/* Handle a fallback route if needed */}
-      {/* <Route path="*" element={<Navigate to="/login" />} /> */}
+      <Route path="/notauthorized" element={<NotAuthorized/>} />
+          <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };

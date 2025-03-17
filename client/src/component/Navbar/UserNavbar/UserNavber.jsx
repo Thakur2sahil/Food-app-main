@@ -54,17 +54,17 @@ export default function UserNavber() {
                 <div className="hidden md:flex  gap-5">
                   <ul className="flex items-center justify-evenly space-x-6">
                     <li className="hover:underline cursor-pointer">
-                      <ReactRouter.Link to={"/user/userhome"}>
+                      <ReactRouter.Link to={"/userhome"}>
                         Home
                       </ReactRouter.Link>
                     </li>
                     <li className="hover:underline cursor-pointer">
-                      <ReactRouter.Link to={"/user/about"}>
+                      <ReactRouter.Link to={"/about"}>
                         About
                       </ReactRouter.Link>
                     </li>
                     <li className="hover:underline cursor-pointer">
-                      <ReactRouter.Link to={"/user/contact"}>
+                      <ReactRouter.Link to={"/contact"}>
                         Contact
                       </ReactRouter.Link>
                     </li>
@@ -73,7 +73,7 @@ export default function UserNavber() {
 
                 <div className="hidden  md:flex items-center space-x-4 ">
                   <span className="hover:underline cursor-pointer">
-                    <ReactRouter.Link to={"/user/userupdateprofile"}>
+                    <ReactRouter.Link to={"updateprofile"}>
                       User Profile
                     </ReactRouter.Link>
                   </span>
@@ -111,17 +111,17 @@ export default function UserNavber() {
                   <div className="md:hidden  text-white ">
                     <ul className="flex flex-col items-center space-y-4 py-4">
                       <li className="hover:underline cursor-pointer">
-                        <ReactRouter.Link to={"/user/userhome"}>
+                        <ReactRouter.Link to={"/userhome"}>
                           Home
                         </ReactRouter.Link>
                       </li>
                       <li className="hover:underline cursor-pointer">
-                        <ReactRouter.Link to={"/user/about"}>
+                        <ReactRouter.Link to={"/about"}>
                           About
                         </ReactRouter.Link>
                       </li>
                       <li className="hover:underline cursor-pointer">
-                        <ReactRouter.Link to={"/user/contact"}>
+                        <ReactRouter.Link to={"/contact"}>
                           Contact
                         </ReactRouter.Link>
                       </li>
@@ -132,7 +132,7 @@ export default function UserNavber() {
 
                   <div className="  md:hidden items-center flex flex-col gap-3 text-white">
                     <span className="hover:underline cursor-pointer">
-                      <ReactRouter.Link to={"/user/userupdateprofile"}>
+                      <ReactRouter.Link to={"updateprofile"}>
                         User Profile
                       </ReactRouter.Link>
                     </span>
@@ -201,17 +201,17 @@ export default function UserNavber() {
                 <div className="hidden md:flex  gap-5">
                   <ul className="flex items-center justify-evenly space-x-6">
                     <li className="hover:underline cursor-pointer">
-                      <ReactRouter.Link to={"/user/userhome"}>
+                      <ReactRouter.Link to={"/userhome"}>
                         Home
                       </ReactRouter.Link>
                     </li>
                     <li className="hover:underline cursor-pointer">
-                      <ReactRouter.Link to={"/user/about"}>
+                      <ReactRouter.Link to={"/about"}>
                         About
                       </ReactRouter.Link>
                     </li>
                     <li className="hover:underline cursor-pointer">
-                      <ReactRouter.Link to={"/user/contact"}>
+                      <ReactRouter.Link to={"/contact"}>
                         Contact
                       </ReactRouter.Link>
                     </li>
@@ -237,17 +237,17 @@ export default function UserNavber() {
                   <div className="md:hidden  text-white ">
                     <ul className="flex flex-col items-center space-y-4 py-4">
                       <li className="hover:underline cursor-pointer">
-                        <ReactRouter.Link to={"/user/userhome"}>
+                        <ReactRouter.Link to={"/userhome"}>
                           Home
                         </ReactRouter.Link>
                       </li>
                       <li className="hover:underline cursor-pointer">
-                        <ReactRouter.Link to={"/user/about"}>
+                        <ReactRouter.Link to={"/about"}>
                           About
                         </ReactRouter.Link>
                       </li>
                       <li className="hover:underline cursor-pointer">
-                        <ReactRouter.Link to={"/user/contact"}>
+                        <ReactRouter.Link to={"/contact"}>
                           Contact
                         </ReactRouter.Link>
                       </li>
@@ -258,7 +258,7 @@ export default function UserNavber() {
 
                   <div className="  md:hidden items-center flex flex-col gap-3 text-white">
                     <span className="hover:underline cursor-pointer">
-                      <ReactRouter.Link to={"/user/userupdateprofile"}>
+                      <ReactRouter.Link to={"updateprofile"}>
                         User Profile
                       </ReactRouter.Link>
                     </span>

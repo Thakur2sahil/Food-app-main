@@ -11,7 +11,7 @@ function ProtectedRoute({ requiredRole, children }) {
   }
 
   if (requiredRole && user.role !== requiredRole) {
-    return <Navigate to="/login" />;
+    return <Navigate to="/notauthorized" />;
   }
 
   return children;

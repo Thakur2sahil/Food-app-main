@@ -8,14 +8,11 @@ export const useAuth = () => React.useContext(authContext);
 
 export const Myprovider = ({ children }) => {
   const [user, setUser] = React.useState({});
-  // const token = localStorage.getItem("token");
    const [token, setToken] = React.useState(localStorage.getItem("token"));
   const isLogged = localStorage.getItem("islogged");
 
-  React.useEffect(() => {
-    console.log("hello");
-    
-    if (token) {
+  React.useEffect(() => {    
+    if (token && isLogged) {
       const fetchData = async () => {
         try {
           const response = await axios.get(

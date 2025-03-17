@@ -3,6 +3,7 @@ import * as React from "react";
 import * as ReactRouter from "react-router-dom";
 import * as ReactToast from "react-toastify";
 import img from "../../../lib/images/ubereats.png";
+import profile from "../../../lib/images/Profile.png"
 import { useAuth } from "../../../lib/context/AuthContext";
 
 function AdminUpperBar() {
