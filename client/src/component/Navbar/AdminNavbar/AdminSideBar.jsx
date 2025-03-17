@@ -4,12 +4,12 @@ import * as ReactRouter from "react-router-dom";
 import * as Icon from "react-icons/fa";
 
 function AdminSideBar() {
-      const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-      const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   return (
     <div className="h-screen ">
       <div className=" bg-gray-800 h-screen text-white flex flex-col items-center py-6">
-        <div className="flex flex-col"> 
+        <div className="flex flex-col">
           <div className="mb-10">
             <img
               src={img}
@@ -29,60 +29,60 @@ function AdminSideBar() {
           </button>
         </div>
         <div className="flex gap-4">
-        <div className="hidden md:flex  gap-5">
-        <nav className="space-y-6 w-full">
-          {/* <ReactRouter.Link to="/admin/adminhome" className="block text-lg hover:bg-gray-700 px-4 py-2 transition duration-200">
+          <div className="hidden md:flex  gap-5">
+            <nav className="space-y-6 w-full">
+              {/* <ReactRouter.Link to="home" className="block text-lg hover:bg-gray-700 px-4 py-2 transition duration-200">
                         <h2>Home</h2>
                     </ReactRouter.Link> */}
 
-          <ReactRouter.Link
-            to="/admin/newproduct"
-            className="block text-lg hover:bg-gray-700 px-4 py-2 transition duration-200"
-          >
-            <h2>Create New Product</h2>
-          </ReactRouter.Link>
+              <ReactRouter.Link
+                to="/new-product"
+                className="block text-lg hover:bg-gray-700 px-4 py-2 transition duration-200"
+              >
+                <h2>Create New Product</h2>
+              </ReactRouter.Link>
 
-          <ReactRouter.Link
-            to="/admin/ourproduct"
-            className="block text-lg hover:bg-gray-700 px-4 py-2 transition duration-200"
-          >
-            <h2>Our Products</h2>
-          </ReactRouter.Link>
+              <ReactRouter.Link
+                to="/all-product"
+                className="block text-lg hover:bg-gray-700 px-4 py-2 transition duration-200"
+              >
+                <h2>All Products</h2>
+              </ReactRouter.Link>
 
-          <ReactRouter.Link
-            to="/admin/updateproduct"
-            className="block text-lg hover:bg-gray-700 px-4 py-2 transition duration-200"
-          >
-            <h2>Update Product</h2>
-          </ReactRouter.Link>
+              <ReactRouter.Link
+                to="/update-product"
+                className="block text-lg hover:bg-gray-700 px-4 py-2 transition duration-200"
+              >
+                <h2>Update Product</h2>
+              </ReactRouter.Link>
 
-          <ReactRouter.Link
-            to="/admin/orderrequest"
-            className="block text-lg hover:bg-gray-700 px-4 py-2 transition duration-200"
-          >
-            <h2>Order Request</h2>
-          </ReactRouter.Link>
-          <ReactRouter.Link
-            to="/admin/userrequest"
-            className="block text-lg hover:bg-gray-700 px-4 py-2 transition duration-200"
-          >
-            <h2>User Request</h2>
-          </ReactRouter.Link>
-          <ReactRouter.Link
-            to="/admin/downloadpdf"
-            className="block text-lg hover:bg-gray-700 px-4 py-2 transition duration-200"
-          >
-            <h2>Download Pdf</h2>
-          </ReactRouter.Link>
+              <ReactRouter.Link
+                to="/orderrequest"
+                className="block text-lg hover:bg-gray-700 px-4 py-2 transition duration-200"
+              >
+                <h2>Order Request</h2>
+              </ReactRouter.Link>
+              <ReactRouter.Link
+                to="/userrequest"
+                className="block text-lg hover:bg-gray-700 px-4 py-2 transition duration-200"
+              >
+                <h2>User Request</h2>
+              </ReactRouter.Link>
+              <ReactRouter.Link
+                to="/downloadpdf"
+                className="block text-lg hover:bg-gray-700 px-4 py-2 transition duration-200"
+              >
+                <h2>Download Pdf</h2>
+              </ReactRouter.Link>
 
-          <ReactRouter.Link
-            to="/"
-            className="block text-lg hover:bg-gray-700 px-4 py-2 transition duration-200"
-          >
-            <h2>Logout</h2>
-          </ReactRouter.Link>
-        </nav>
-        </div>
+              <ReactRouter.Link
+                to="/"
+                className="block text-lg hover:bg-gray-700 px-4 py-2 transition duration-200"
+              >
+                <h2>Logout</h2>
+              </ReactRouter.Link>
+            </nav>
+          </div>
         </div>
         {/* {isMenuOpen && (
               <>

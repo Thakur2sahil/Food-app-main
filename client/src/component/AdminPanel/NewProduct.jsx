@@ -10,7 +10,6 @@ export default function NewProduct() {
 
     const handleSubmit = (e)=>{
         e && e.preventDefault();
-        console.log("hello",image);
             }
 
             const handleChange = (e)=>{
@@ -24,7 +23,7 @@ export default function NewProduct() {
     
   return (
     <div className="flex items-center justify-center mx-6 px-4">
-            <div className="bg-white p-10 shadow-xl rounded-lg w-full max-w-md mt-0">
+            <div className="bg-white p-4 shadow-xl rounded-lg w-full max-w-md mt-0">
                 <h1 className="text-2xl font-bold text-center mb-2 text-gray-800">Create New Product</h1>
                 <form onSubmit={(e)=>handleSubmit(e)}>
                     <div className="mb-2">

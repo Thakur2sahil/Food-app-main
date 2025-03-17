@@ -6,18 +6,19 @@ import * as Icon from "react-icons/fa";
 import { useAuth } from "../../../lib/context/AuthContext";
 
 export default function UserNavber() {
-  const { user } = useAuth();
+  const { user, setToken } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const isLogged = localStorage.getItem("islogged");
   const navigate = ReactRouter.useNavigate();
   const handleLogout = () => {
     localStorage.clear();
+    setToken(null);
     navigate("/navbar");
   };
- 
-  console.log(user);
-  
+  const handleLogin = () => {
+    navigate("/login");
+  };
 
   return (
     <>
@@ -76,7 +77,7 @@ export default function UserNavber() {
                       User Profile
                     </ReactRouter.Link>
                   </span>
-                  {user.image !==null ? (
+                  {user.image !== null ? (
                     <img
                       src={`${import.meta.env.VITE_BACKEND_URL}/${user.image}`}
                       className="w-12 h-12 rounded-full"
@@ -158,10 +159,7 @@ export default function UserNavber() {
                     </ReactRouter.Link>
                     <button
                       className="px-2 py-2 bg-red-500 rounded hover:bg-red-600"
-                      onClick={() => {
-                        localStorage.clear();
-                        navigate("/navbar");
-                      }}
+                      onClick={() => handleLogout()}
                     >
                       Logout
                     </button>
@@ -224,9 +222,7 @@ export default function UserNavber() {
                   <img src={profile} className="w-12 h-12 rounded-full" />
                   <button
                     className="px-3 py-2 bg-blue-500 rounded hover:bg-blue-600"
-                    onClick={() => {
-                      navigate("/login");
-                    }}
+                    onClick={() => handleLogin()}
                   >
                     Login
                   </button>

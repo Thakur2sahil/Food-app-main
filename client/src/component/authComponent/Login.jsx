@@ -23,8 +23,16 @@ export default function Login() {
       if (response) {
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("islogged", true);
-        setUser(response.data);
-        navigate(`/navbar`);
+        const role = response.data.emailCheck.role;
+        setUser(response.data.emailCheck);
+        if(role ==="user")
+        {
+          navigate("/navbar");
+        }
+        else  
+        {          
+          navigate("/adminhome");
+          }
       }
     } catch (error) {
       console.log(error.response.data.message);
