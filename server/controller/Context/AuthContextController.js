@@ -7,7 +7,7 @@ const authInfo = async (req, res) => {
   try {
     const result = await User.findOne({
       where: { id: id },
-      attributes: ["email", "username", "id", "image"],
+      attributes: ["email", "username", "id", "image", "role"],
       raw: true,
     });
 
