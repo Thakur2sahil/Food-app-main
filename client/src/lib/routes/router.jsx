@@ -12,11 +12,24 @@ import NotAuthorized from '../NotAuthorized/NotAuthorized';
 import NotFound from '../NotFound/NotFOund';
 import UserLayout from '../../component/UserPanel/UserLayout';
 import About from '../../component/UserPanel/About';
+import { jwtDecode } from 'jwt-decode';
 
 const AppRouter = () => {
-  const { user , token } = useAuth();
-    const userRole = user.role
-    
+  const token = localStorage.getItem('token');
+
+  let userRole = null; // Default to null to avoid undefined error
+
+  if (token) {
+    try {
+      const decoded = jwtDecode(token); // Decode only if token is present
+      userRole = decoded.role; // Extract the role
+      console.log(decoded);
+    } catch (error) {
+      console.error('Token decoding error:', error);
+      // Handle error if decoding fails
+    }
+  }
+
   return (
     <Routes>
 

@@ -4,9 +4,10 @@ import profile from "../../../lib/images/Profile.png";
 import * as ReactRouter from "react-router-dom";
 import * as Icon from "react-icons/fa";
 import { useAuth } from "../../../lib/context/AuthContext";
+import { jwtDecode } from "jwt-decode";
 
 export default function UserNavber() {
-  const { user, setToken } = useAuth();
+  const { user,setUser, setToken } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const isLogged = localStorage.getItem("islogged");
@@ -19,6 +20,19 @@ export default function UserNavber() {
   const handleLogin = () => {
     navigate("/login");
   };
+
+  React.useEffect(() => {
+    const token = localStorage.getItem("token");  // Get token from localStorage
+    if (token) {
+      try {
+        const decoded = jwtDecode(token);
+        setUser(decoded)
+        console.log("Decoded JWT:", decoded);
+      } catch (error) {
+        console.error("Invalid JWT token:", error);
+      }
+    }
+  }, []);
 
   return (
     <>

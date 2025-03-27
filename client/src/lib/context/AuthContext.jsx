@@ -9,10 +9,10 @@ export const useAuth = () => React.useContext(authContext);
 export const Myprovider = ({ children }) => {
   const [user, setUser] = React.useState({});
    const [token, setToken] = React.useState(localStorage.getItem("token"));
-  const isLogged = localStorage.getItem("islogged");
-
-  React.useEffect(() => {    
-    if (token && isLogged) {
+  React.useEffect(() => {     
+    if (token ) {
+      console.log("hello");
+      
       const fetchData = async () => {
         try {
           const response = await axios.get(
@@ -22,6 +22,8 @@ export const Myprovider = ({ children }) => {
             }
           );
           if (response.data) {
+            // console.log(response.data.data);
+            
             setUser(response.data.data);
           }
         } catch (error) {
@@ -31,7 +33,7 @@ export const Myprovider = ({ children }) => {
             toast.error("Session expired. Please login again.");
             localStorage.clear();
             setTimeout(() => {
-              window.location.href = "/navbar";
+              window.location.href = "/login";
             }, 2000);
           } else {
             toast.error("An error occurred. Please try again later.");
@@ -41,7 +43,7 @@ export const Myprovider = ({ children }) => {
 
       fetchData();
     }
-  }, [token]);
+  }, []);
   return (
     <authContext.Provider
       value={{
