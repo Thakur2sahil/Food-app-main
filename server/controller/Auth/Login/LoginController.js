@@ -35,6 +35,7 @@ const login = async (req, res) => {
        email: emailCheck.email,
        username: emailCheck.username,
        image: emailCheck.image,
+       role: emailCheck.role,
      },
      key,
      { expiresIn: "1h" }
