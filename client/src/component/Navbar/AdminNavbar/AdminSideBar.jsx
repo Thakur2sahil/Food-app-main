@@ -36,7 +36,7 @@ function AdminSideBar() {
                     </ReactRouter.Link> */}
 
               <ReactRouter.Link
-                to="/new-product"
+                to="/adminhome"
                 className="block text-lg hover:bg-gray-700 px-4 py-2 transition duration-200"
               >
                 <h2>Create New Product</h2>
@@ -76,7 +76,7 @@ function AdminSideBar() {
               </ReactRouter.Link>
 
               <ReactRouter.Link
-                to="/"
+                to="/login"
                 className="block text-lg hover:bg-gray-700 px-4 py-2 transition duration-200"
               >
                 <h2>Logout</h2>

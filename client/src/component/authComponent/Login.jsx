@@ -27,7 +27,7 @@ export default function Login() {
         setUser(response.data.emailCheck);
         if(role ==="user")
         {
-          navigate("/navbar");
+          navigate("/");
         }
         else  
         {          

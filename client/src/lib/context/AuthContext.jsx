@@ -8,11 +8,10 @@ export const useAuth = () => React.useContext(authContext);
 
 export const Myprovider = ({ children }) => {
   const [user, setUser] = React.useState({});
-   const [token, setToken] = React.useState(localStorage.getItem("token"));
-  React.useEffect(() => {     
-    if (token ) {
-      console.log("hello");
-      
+  const [token, setToken] = React.useState(localStorage.getItem("token"));
+  React.useEffect(() => {
+    if (token) {
+
       const fetchData = async () => {
         try {
           const response = await axios.get(
@@ -21,36 +20,41 @@ export const Myprovider = ({ children }) => {
               headers: { Authorization: `Bearer ${token}` },
             }
           );
+
           if (response.data) {
-            // console.log(response.data.data);
-            
             setUser(response.data.data);
           }
         } catch (error) {
+          // Ensure the error structure is correct, and check the message
+           console.log(error);
           if (
-            error.response.data.error === "Session expired Please Login again"
+            error?.response?.data?.message===
+            "Session expired Please Login again"
           ) {
+           
+            
             toast.error("Session expired. Please login again.");
-            localStorage.clear();
+            localStorage.clear(); // Clear localStorage
             setTimeout(() => {
-              window.location.href = "/login";
-            }, 2000);
+              window.location.href = "/login"; // Redirect to login
+            }, 2000); // Redirect after a delay
           } else {
-            toast.error("An error occurred. Please try again later.");
+            console.error("An error occurred. Please try again later.");
           }
         }
       };
 
       fetchData();
     }
-  }, []);
+  }, [token]); // Add token as a dependency in useEffect
+
   return (
     <authContext.Provider
       value={{
         user,
         setUser,
         token,
-        setToken
+        setToken,
       }}
     >
       {children}

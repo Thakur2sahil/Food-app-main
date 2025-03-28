@@ -5,9 +5,12 @@ import * as ReactRouter from "react-router-dom";
 import * as Icon from "react-icons/fa";
 import { useAuth } from "../../../lib/context/AuthContext";
 import { jwtDecode } from "jwt-decode";
+import { useApp } from "../../../lib/context/AppContext";
+import debounce from "lodash/debounce";
 
 export default function UserNavber() {
-  const { user,setUser, setToken } = useAuth();
+  const { user, setUser, setToken } = useAuth();
+  const { setSearchTerm } = useApp();
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const isLogged = localStorage.getItem("islogged");
@@ -15,24 +18,29 @@ export default function UserNavber() {
   const handleLogout = () => {
     localStorage.clear();
     setToken(null);
-    navigate("/navbar");
+    navigate("/");
   };
   const handleLogin = () => {
+    localStorage.clear();
+    setToken(null);
     navigate("/login");
   };
 
   React.useEffect(() => {
-    const token = localStorage.getItem("token");  // Get token from localStorage
+    const token = localStorage.getItem("token"); // Get token from localStorage
     if (token) {
       try {
         const decoded = jwtDecode(token);
-        setUser(decoded)
-        console.log("Decoded JWT:", decoded);
+        setUser(decoded);
       } catch (error) {
         console.error("Invalid JWT token:", error);
       }
     }
   }, []);
+
+  const handleSearchChange = debounce((e) => {
+    setSearchTerm(e.target.value.toLowerCase());
+  }, 2000);
 
   return (
     <>
@@ -48,7 +56,7 @@ export default function UserNavber() {
                     type="search"
                     className="outline-none text-black px-2 py-1 w-[70%] rounded bg-white"
                     placeholder="Search dishes..."
-                    // onChange={handleSearchChange}
+                    onChange={handleSearchChange}
                   />
                 </div>
               </div>
@@ -68,14 +76,12 @@ export default function UserNavber() {
                 <div className="hidden md:flex  gap-5">
                   <ul className="flex items-center justify-evenly space-x-6">
                     <li className="hover:underline cursor-pointer">
-                      <ReactRouter.Link to={"/userhome"}>
+                      <ReactRouter.Link to={"/"}>
                         Home
                       </ReactRouter.Link>
                     </li>
                     <li className="hover:underline cursor-pointer">
-                      <ReactRouter.Link to={"/about"}>
-                        About
-                      </ReactRouter.Link>
+                      <ReactRouter.Link to={"/about"}>About</ReactRouter.Link>
                     </li>
                     <li className="hover:underline cursor-pointer">
                       <ReactRouter.Link to={"/contact"}>
@@ -125,14 +131,12 @@ export default function UserNavber() {
                   <div className="md:hidden  text-white ">
                     <ul className="flex flex-col items-center space-y-4 py-4">
                       <li className="hover:underline cursor-pointer">
-                        <ReactRouter.Link to={"/userhome"}>
+                        <ReactRouter.Link to={"/"}>
                           Home
                         </ReactRouter.Link>
                       </li>
                       <li className="hover:underline cursor-pointer">
-                        <ReactRouter.Link to={"/about"}>
-                          About
-                        </ReactRouter.Link>
+                        <ReactRouter.Link to={"/about"}>About</ReactRouter.Link>
                       </li>
                       <li className="hover:underline cursor-pointer">
                         <ReactRouter.Link to={"/contact"}>
@@ -195,7 +199,7 @@ export default function UserNavber() {
                     type="search"
                     className="outline-none text-black px-2 py-1 w-[70%] rounded bg-white"
                     placeholder="Search dishes..."
-                    // onChange={handleSearchChange}
+                    onChange={handleSearchChange}
                   />
                 </div>
               </div>
@@ -215,14 +219,12 @@ export default function UserNavber() {
                 <div className="hidden md:flex  gap-5">
                   <ul className="flex items-center justify-evenly space-x-6">
                     <li className="hover:underline cursor-pointer">
-                      <ReactRouter.Link to={"/userhome"}>
+                      <ReactRouter.Link to={"/"}>
                         Home
                       </ReactRouter.Link>
                     </li>
                     <li className="hover:underline cursor-pointer">
-                      <ReactRouter.Link to={"/about"}>
-                        About
-                      </ReactRouter.Link>
+                      <ReactRouter.Link to={"/about"}>About</ReactRouter.Link>
                     </li>
                     <li className="hover:underline cursor-pointer">
                       <ReactRouter.Link to={"/contact"}>
@@ -251,14 +253,12 @@ export default function UserNavber() {
                   <div className="md:hidden  text-white ">
                     <ul className="flex flex-col items-center space-y-4 py-4">
                       <li className="hover:underline cursor-pointer">
-                        <ReactRouter.Link to={"/userhome"}>
+                        <ReactRouter.Link to={"/"}>
                           Home
                         </ReactRouter.Link>
                       </li>
                       <li className="hover:underline cursor-pointer">
-                        <ReactRouter.Link to={"/about"}>
-                          About
-                        </ReactRouter.Link>
+                        <ReactRouter.Link to={"/about"}>About</ReactRouter.Link>
                       </li>
                       <li className="hover:underline cursor-pointer">
                         <ReactRouter.Link to={"/contact"}>
@@ -301,7 +301,7 @@ export default function UserNavber() {
                       className="px-2 py-2 bg-red-500 rounded hover:bg-red-600"
                       onClick={() => {
                         localStorage.clear();
-                        // navigate("/");
+                        navigate("/");
                       }}
                     >
                       Logout

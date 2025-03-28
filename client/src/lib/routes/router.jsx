@@ -13,6 +13,8 @@ import NotFound from '../NotFound/NotFOund';
 import UserLayout from '../../component/UserPanel/UserLayout';
 import About from '../../component/UserPanel/About';
 import { jwtDecode } from 'jwt-decode';
+import ProductCard from '../../component/UserPanel/ProductCard';
+import Contact from '../../component/UserPanel/Contact';
 
 const AppRouter = () => {
   const token = localStorage.getItem('token');
@@ -22,11 +24,9 @@ const AppRouter = () => {
   if (token) {
     try {
       const decoded = jwtDecode(token); // Decode only if token is present
-      userRole = decoded.role; // Extract the role
-      console.log(decoded);
+      userRole = decoded.role; 
     } catch (error) {
       console.error('Token decoding error:', error);
-      // Handle error if decoding fails
     }
   }
 
@@ -43,7 +43,10 @@ const AppRouter = () => {
 
       {/* User routes */}
       <Route path="/navbar" element={<UserNavber />} />
-      <Route path="/about" element={<ProtectedRoute requiredRole="user"><UserLayout><About /></UserLayout></ProtectedRoute>} />
+      <Route path="/" element={<UserLayout><ProductCard /></UserLayout>} />
+      <Route path="/about" element={<UserLayout><About /></UserLayout>} />
+      <Route path="/contact" element={<UserLayout><Contact /></UserLayout>} />
+      {/* <Route path="/about" element={<ProtectedRoute requiredRole="user"><UserLayout><About /></UserLayout></ProtectedRoute>} /> */}
       
       {/* Handle a fallback route if needed */}
       <Route path="/notauthorized" element={<NotAuthorized/>} />
