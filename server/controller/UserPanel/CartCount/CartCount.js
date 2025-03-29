@@ -1,4 +1,3 @@
-import { Cart } from "../../../modal/Cart/CartModal.js";
 import sequelize from "../../../sequlize.js";
 
 const CartCount = async (req, res) => {
@@ -6,9 +5,7 @@ const CartCount = async (req, res) => {
 
   if (!userId) {
     return res.status(400).json({ message: "User ID is required" });
-  }
-
-  console.log("User ID received:", userId); // Log the user ID
+  } // Log the user ID
 
   try {
     const result = await sequelize.query(
@@ -21,8 +18,6 @@ const CartCount = async (req, res) => {
         raw: true,
       }
     );
-
-    // console.log(result.length);
 
     if (result.length > 0) {
       const { itemcount } = result[0]; 
