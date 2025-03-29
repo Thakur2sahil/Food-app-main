@@ -6,8 +6,6 @@ import AllProduct from '../../component/AdminPanel/AllProduct';
 import NewProduct from '../../component/AdminPanel/NewProduct';
 import AdminDashBoard from '../../component/AdminPanel/AdminDashBoard';
 import ProtectedRoute from './ProtectedRoute/ProtectedRoute';
-import { useAuth } from '../context/AuthContext';
-import UpdateProduct from '../../component/AdminPanel/UpdateProduct';
 import NotAuthorized from '../NotAuthorized/NotAuthorized';
 import NotFound from '../NotFound/NotFOund';
 import UserLayout from '../../component/UserPanel/UserLayout';
@@ -15,6 +13,8 @@ import About from '../../component/UserPanel/About';
 import { jwtDecode } from 'jwt-decode';
 import ProductCard from '../../component/UserPanel/ProductCard';
 import Contact from '../../component/UserPanel/Contact';
+import ProductRating from '../../component/AdminPanel/ProductRating';
+import ProductUpdate from '../../component/AdminPanel/ProductUpdate';
 
 const AppRouter = () => {
   const token = localStorage.getItem('token');
@@ -39,7 +39,8 @@ const AppRouter = () => {
       {/* Admin routes*/}
        <Route path="/adminhome" element={<ProtectedRoute requiredRole="admin"><AdminDashBoard><NewProduct /></AdminDashBoard></ProtectedRoute>} />
        <Route path="/all-product" element={<ProtectedRoute requiredRole="admin"><AdminDashBoard><AllProduct /></AdminDashBoard></ProtectedRoute>} />
-       <Route path="/update-product" element={<ProtectedRoute requiredRole="admin"><AdminDashBoard><UpdateProduct /></AdminDashBoard></ProtectedRoute>} />
+       <Route path="/update-product/:id" element={<ProtectedRoute requiredRole="admin"><AdminDashBoard><ProductUpdate /></AdminDashBoard></ProtectedRoute>} />
+       <Route path="/rating/:id" element={<ProtectedRoute requiredRole="admin"><AdminDashBoard><ProductRating /></AdminDashBoard></ProtectedRoute>} />
 
       {/* User routes */}
       <Route path="/navbar" element={<UserNavber />} />

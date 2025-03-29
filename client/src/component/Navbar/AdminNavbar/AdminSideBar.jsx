@@ -50,13 +50,6 @@ function AdminSideBar() {
               </ReactRouter.Link>
 
               <ReactRouter.Link
-                to="/update-product"
-                className="block text-lg hover:bg-gray-700 px-4 py-2 transition duration-200"
-              >
-                <h2>Update Product</h2>
-              </ReactRouter.Link>
-
-              <ReactRouter.Link
                 to="/orderrequest"
                 className="block text-lg hover:bg-gray-700 px-4 py-2 transition duration-200"
               >

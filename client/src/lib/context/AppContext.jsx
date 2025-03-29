@@ -21,10 +21,11 @@ export const Appprovider = ({ children }) => {
   });
 
   const userId = user.id;
+  const role = user.role;
 
   React.useEffect(() => {
     (async () => {
-      if (userId) {
+      if (userId && role === "user") {
         try {
           const res = await axios.post(
             `${import.meta.env.VITE_BACKEND_URL}/api/user/cart-count`,
