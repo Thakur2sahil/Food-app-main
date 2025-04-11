@@ -1,23 +1,30 @@
-import { Routes, Route, Navigate } from 'react-router-dom'; // No need to import Router here
-import UserNavber from "../../component/Navbar/UserNavbar/UserNavber";
+import { Routes, Route, Navigate } from 'react-router-dom'; 
 import Login from "../../component/authComponent/Login";
 import Signup from "../../component/authComponent/Signup";
-import AllProduct from '../../component/AdminPanel/AllProduct';
-import NewProduct from '../../component/AdminPanel/NewProduct';
+import AllProduct from '../../Pages/Admin/AllProduct';
+import NewProduct from '../../Pages/Admin/NewProduct';
 import AdminDashBoard from '../../component/AdminPanel/AdminDashBoard';
 import ProtectedRoute from './ProtectedRoute/ProtectedRoute';
 import NotAuthorized from '../NotAuthorized/NotAuthorized';
 import NotFound from '../NotFound/NotFOund';
 import UserLayout from '../../component/UserPanel/UserLayout';
-import About from '../../component/UserPanel/About';
+import About from '../../Pages/User/About';
 import { jwtDecode } from 'jwt-decode';
 import ProductCard from '../../component/UserPanel/ProductCard';
-import Contact from '../../component/UserPanel/Contact';
-import ProductRating from '../../component/AdminPanel/ProductRating';
-import ProductUpdate from '../../component/AdminPanel/ProductUpdate';
+import Contact from '../../Pages/User/Contact';  
+import ProductRating from '../../Pages/Admin/ProductRating';
+import ProductUpdate from '../../Pages/Admin/ProductUpdate';
+import ProductDelete from '../../Pages/Admin/ProductDelete';
+import OrderRequest from '../../Pages/Admin/OrderRequest';
+import UserRequest from '../../Pages/Admin/UserRequest';
+import { useAuth } from '../context/AuthContext';
+import ResetPassword from '../../Pages/Profile/ResetPassword';
+import UserProfile from '../../Pages/Profile/UserProfile';
+import DownloadPdf from '../../Pages/Admin/DownloadPdf';
 
 const AppRouter = () => {
-  const token = localStorage.getItem('token');
+  const { token } = useAuth();
+  // const token = localStorage.getItem('token') ||null;
 
   let userRole = null; // Default to null to avoid undefined error
 
@@ -26,6 +33,7 @@ const AppRouter = () => {
       const decoded = jwtDecode(token); // Decode only if token is present
       userRole = decoded.role; 
     } catch (error) {
+      userRole=null
       console.error('Token decoding error:', error);
     }
   }
@@ -33,22 +41,29 @@ const AppRouter = () => {
   return (
     <Routes>
 
-        <Route path="/signup" element={!token ? <Signup /> : <Navigate to={userRole === 'admin' ? '/adminhome' : '/navbar'} />} />
-          <Route path="/login" element={!token ? <Login /> : <Navigate to={userRole === 'admin' ? '/adminhome' : '/navbar'} />} />
+        <Route path="/signup" element={!token  ? <Signup /> : <Navigate to={(userRole === 'admin' || userRole === 'superadmin' )? '/adminhome' : '/'} />} />
+          <Route path="/login" element={!token ? <Login /> : <Navigate to={(userRole === 'admin' || userRole === 'superadmin') ? '/adminhome' : '/'} />} />
+      
+       {/* <Route path="/login" element={<AuthAuthorized ><Login/></AuthAuthorized>} /> */}
       
       {/* Admin routes*/}
-       <Route path="/adminhome" element={<ProtectedRoute requiredRole="admin"><AdminDashBoard><NewProduct /></AdminDashBoard></ProtectedRoute>} />
-       <Route path="/all-product" element={<ProtectedRoute requiredRole="admin"><AdminDashBoard><AllProduct /></AdminDashBoard></ProtectedRoute>} />
-       <Route path="/update-product/:id" element={<ProtectedRoute requiredRole="admin"><AdminDashBoard><ProductUpdate /></AdminDashBoard></ProtectedRoute>} />
-       <Route path="/rating/:id" element={<ProtectedRoute requiredRole="admin"><AdminDashBoard><ProductRating /></AdminDashBoard></ProtectedRoute>} />
+       <Route path="/adminhome" element={<ProtectedRoute requiredRoles={["admin", "superadmin"]}><AdminDashBoard><NewProduct /></AdminDashBoard></ProtectedRoute>} />
+       <Route path="/all-product" element={<ProtectedRoute requiredRoles={["admin", "superadmin"]}><AdminDashBoard><AllProduct /></AdminDashBoard></ProtectedRoute>} />
+       <Route path="/update-product/:id" element={<ProtectedRoute requiredRoles={["admin", "superadmin"]}><AdminDashBoard><ProductUpdate /></AdminDashBoard></ProtectedRoute>} />
+       <Route path="/delete-product/:id" element={<ProtectedRoute requiredRoles={["admin", "superadmin"]}><AdminDashBoard><ProductDelete /></AdminDashBoard></ProtectedRoute>} />
+       <Route path="/rating/:id" element={<ProtectedRoute requiredRoles={["admin", "superadmin"]}><AdminDashBoard><ProductRating /></AdminDashBoard></ProtectedRoute>} />
+       <Route path="/order-request" element={<ProtectedRoute requiredRoles={["admin", "superadmin"]}><AdminDashBoard><OrderRequest /></AdminDashBoard></ProtectedRoute>} />
+       <Route path="/user-request" element={<ProtectedRoute requiredRoles={["admin", "superadmin"]}><AdminDashBoard><UserRequest /></AdminDashBoard></ProtectedRoute>} />
+       <Route path="/download-pdf" element={<ProtectedRoute requiredRoles={["admin", "superadmin"]}><AdminDashBoard><DownloadPdf /></AdminDashBoard></ProtectedRoute>} />
 
       {/* User routes */}
-      <Route path="/navbar" element={<UserNavber />} />
       <Route path="/" element={<UserLayout><ProductCard /></UserLayout>} />
       <Route path="/about" element={<UserLayout><About /></UserLayout>} />
       <Route path="/contact" element={<UserLayout><Contact /></UserLayout>} />
-      {/* <Route path="/about" element={<ProtectedRoute requiredRole="user"><UserLayout><About /></UserLayout></ProtectedRoute>} /> */}
-      
+
+      {/* Common route */}
+       <Route path="/reset-password/:id" element={(userRole !== 'user' )? <AdminDashBoard><ResetPassword /></AdminDashBoard> : <UserLayout><ResetPassword /></UserLayout>} />
+       <Route path="/update-profile/:id" element={ (userRole !== 'user' )? <AdminDashBoard><UserProfile /></AdminDashBoard> : <UserLayout><UserProfile /></UserLayout>} /> 
       {/* Handle a fallback route if needed */}
       <Route path="/notauthorized" element={<NotAuthorized/>} />
           <Route path="*" element={<NotFound />} />

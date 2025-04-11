@@ -1,6 +1,7 @@
 import { Product } from "../../../modal/Product/ProductModal.js";
 
 const ProductInfo = async (req, res) => {
+  
   const { id } = req.params;
 
   try {

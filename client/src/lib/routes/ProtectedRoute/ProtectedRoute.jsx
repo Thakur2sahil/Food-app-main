@@ -2,10 +2,8 @@ import { jwtDecode } from "jwt-decode";
 import * as React from "react";
 import { Navigate } from "react-router";
 
-function ProtectedRoute({ requiredRole, children }) {
+function ProtectedRoute({ requiredRoles, children }) {
   const token = localStorage.getItem("token");
-
-  
 
   let userRole = null; // Default to null to avoid undefined error
 
@@ -22,7 +20,7 @@ function ProtectedRoute({ requiredRole, children }) {
     return <Navigate to="/login" />;
   }
 
-  if (requiredRole && userRole !== requiredRole) {
+  if (requiredRoles && !requiredRoles.includes(userRole)) {
     return <Navigate to="/notauthorized" />;
   }
 

@@ -14,28 +14,31 @@ export default function NotFound() {
       const decoded = jwtDecode(token); // Decode only if token is present
       role = decoded.role;
     } catch (error) {
+      role = null;
       console.error("Token decoding error:", error);
     }
   }
 
   React.useEffect(() => {
-    if (token) {
-      if (role === "user") {
-        setTimeout(() => {
-          navigate("/");
-        }, 2000);
-      } else if (role === "admin") {
-        setTimeout(() => {
-          navigate("/adminhome");
-        }, 2000);
-      } else {
-        setTimeout(() => {
-          localStorage.clear();
-          navigate("/");
-        }, 2000);
-      }
+    if (role === "user") {
+      setTimeout(() => {
+        navigate("/");
+      }, 2000);
+    } else if (role === "admin") {
+      setTimeout(() => {
+        navigate("/adminhome");
+      }, 2000);
+    } else if (role === "superadmin") {
+      setTimeout(() => {
+        navigate("/adminhome");
+      }, 2000);
+    } else {
+      localStorage.clear();
+      setTimeout(() => {
+        window.location.href = "/login";
+      }, 2000);
     }
-  }, []);
+  }, [role]);
 
   return (
     <div className="flex items-center justify-center h-screen bg-gray-100">

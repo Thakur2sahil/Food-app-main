@@ -1,3 +1,4 @@
+import { jwtDecode } from "jwt-decode";
 import * as React from "react";
 import { useNavigate } from "react-router";
 
@@ -26,13 +27,17 @@ export default function NotAuthorized() {
       setTimeout(() => {
         navigate("/adminhome");
       }, 2000);
-    } else {
+    } else if (role === "superadmin") {
       setTimeout(() => {
-        localStorage.clear();
+        navigate("/adminhome");
+      }, 2000);
+    } else {
+      localStorage.clear();
+      setTimeout(() => {
         window.location.href = "/login";
       }, 2000);
     }
-  }, []);
+  }, [role]);
 
   return (
     <div className="flex items-center justify-center h-screen bg-gray-100">

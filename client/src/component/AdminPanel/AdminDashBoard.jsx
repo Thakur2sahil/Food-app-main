@@ -1,7 +1,6 @@
 import * as React from "react";
 import AdminSideBar from "../Navbar/AdminNavbar/AdminSideBar";
 import AdminUpperBar from "../Navbar/AdminNavbar/AdminUpperBar";
-import NewProduct from "./NewProduct";
 
 export default function AdminDashBoard({ children }) {
   return (
@@ -16,7 +15,7 @@ export default function AdminDashBoard({ children }) {
         <div className="p-0 m-0">
           <AdminUpperBar />
         </div>
-        <div className=" pl-80 pt-0 overflow-auto">{children}</div>
+        <div className=" pl-96 pt-0 overflow-auto">{children}</div>
       </div>
     </div>
   );

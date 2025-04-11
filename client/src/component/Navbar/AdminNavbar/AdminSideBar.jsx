@@ -50,19 +50,19 @@ function AdminSideBar() {
               </ReactRouter.Link>
 
               <ReactRouter.Link
-                to="/orderrequest"
+                to="/order-request"
                 className="block text-lg hover:bg-gray-700 px-4 py-2 transition duration-200"
               >
                 <h2>Order Request</h2>
               </ReactRouter.Link>
               <ReactRouter.Link
-                to="/userrequest"
+                to="/user-request"
                 className="block text-lg hover:bg-gray-700 px-4 py-2 transition duration-200"
               >
                 <h2>User Request</h2>
               </ReactRouter.Link>
               <ReactRouter.Link
-                to="/downloadpdf"
+                to="/download-pdf"
                 className="block text-lg hover:bg-gray-700 px-4 py-2 transition duration-200"
               >
                 <h2>Download Pdf</h2>

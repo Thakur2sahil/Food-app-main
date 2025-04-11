@@ -29,11 +29,11 @@ export default function AllProduct() {
   };
 
   const handledelete = (id) => {
-    navigate(`/update-delete/${id}`);
+    navigate(`/delete-product/${id}`);
   };
 
   return (
-    <div className="flex items-center justify-center p-5 m-5">
+    <div className="flex items-center justify-center m-1">
       <div className="w-full max-w-6xl">
         <h1 className="m-3 text-3xl font-bold text-center">Product List</h1>
         <table className="min-w-full border border-gray-300 bg-gray-200">
@@ -87,7 +87,9 @@ export default function AllProduct() {
                   </td>
                   <td className="px-4 py-2 border-b border-gray-300 text-center">
                     <img
-                      src={`http://localhost:8004/${product.photo}`}
+                      src={`${import.meta.env.VITE_BACKEND_URL}/${
+                        product.photo
+                      }`}
                       alt={product.name}
                       className="w-24 h-24 object-cover mx-auto"
                     />

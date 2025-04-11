@@ -7,18 +7,20 @@ import profile from "../../../lib/images/Profile.png";
 import { useAuth } from "../../../lib/context/AuthContext";
 
 function AdminUpperBar() {
+  const { setToken } = useAuth();
   const navigate = ReactRouter.useNavigate();
   const [username, setUsername] = React.useState("");
   const [image, setImage] = React.useState(null);
   const { user } = useAuth();
 
   const handleClick = () => {
-    navigate("/admin/updateprofile");
+    navigate(`/update-profile/${user.id}`);
   };
 
   const handleLogout = () => {
     localStorage.clear();
-    window.location.href = "/login"; // Redirect to home page
+    setToken(null);
+    navigate("/login"); // Redirect to home page
   };
   return (
     <nav className="bg-gray-800 p-4 flex items-center justify-between">

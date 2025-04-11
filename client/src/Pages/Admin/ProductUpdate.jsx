@@ -5,6 +5,7 @@ import * as Toast from "react-toastify";
 
 export default function ProductUpdate() {
   const params = ReactRouter.useParams();
+  const navigate = ReactRouter.useNavigate();
 
   const [data, setData] = React.useState({});
 
@@ -30,6 +31,11 @@ export default function ProductUpdate() {
         `${import.meta.env.VITE_BACKEND_URL}/api/admin/update-product`,
         { payload: { ...data, id: params.id } }
       );
+      if (response.data) {
+        setTimeout(() => {
+          navigate(`/all-product`);
+        }, 2000);
+      }
     } catch (error) {
       console.log(error);
     }

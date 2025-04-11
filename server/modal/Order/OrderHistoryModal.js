@@ -51,9 +51,8 @@ const OrderHistory = sequelize.define(
     },
   },
   {
-    timestamps: false, // Disable automatic timestamp fields (createdAt, updatedAt)
-    tableName: "order_history", // Specify the table name
-    schema: "sahil", // Specify the schema name
+    timestamps: false,
+    tableName: "order_history",
     validate: {
       ratingRange() {
         if (this.rating && (this.rating < 1 || this.rating > 5)) {
