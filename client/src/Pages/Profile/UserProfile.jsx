@@ -86,7 +86,9 @@ export default function UserProfile() {
 
   const handleResetPassword = (e) => {
     e && e.preventDefault();
-    navigate(`/reset-password/${userId.id}`);
+    user.role !== "user"
+      ? navigate(`/admin-reset-password/${userId.id}`)
+      : navigate(`/reset-password/${userId.id}`);
   };
   return (
     <div className="max-w-2xl mx-auto p-6 bg-gray-100 rounded-lg shadow-md mt-10">

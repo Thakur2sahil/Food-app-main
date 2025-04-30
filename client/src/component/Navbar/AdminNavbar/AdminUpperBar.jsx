@@ -14,7 +14,7 @@ function AdminUpperBar() {
   const { user } = useAuth();
 
   const handleClick = () => {
-    navigate(`/update-profile/${user.id}`);
+    navigate(`/admin-update-profile/${user.id}`);
   };
 
   const handleLogout = () => {

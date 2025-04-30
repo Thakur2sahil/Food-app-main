@@ -21,17 +21,17 @@ import { useAuth } from '../context/AuthContext';
 import ResetPassword from '../../Pages/Profile/ResetPassword';
 import UserProfile from '../../Pages/Profile/UserProfile';
 import DownloadPdf from '../../Pages/Admin/DownloadPdf';
+import Cart from '../../Pages/User/Cart';
 
 const AppRouter = () => {
   const { token } = useAuth();
-  // const token = localStorage.getItem('token') ||null;
 
-  let userRole = null; // Default to null to avoid undefined error
+  let userRole = null; 
 
   if (token) {
     try {
       const decoded = jwtDecode(token); // Decode only if token is present
-      userRole = decoded.role; 
+      userRole = decoded.role;       
     } catch (error) {
       userRole=null
       console.error('Token decoding error:', error);
@@ -55,16 +55,17 @@ const AppRouter = () => {
        <Route path="/order-request" element={<ProtectedRoute requiredRoles={["admin", "superadmin"]}><AdminDashBoard><OrderRequest /></AdminDashBoard></ProtectedRoute>} />
        <Route path="/user-request" element={<ProtectedRoute requiredRoles={["admin", "superadmin"]}><AdminDashBoard><UserRequest /></AdminDashBoard></ProtectedRoute>} />
        <Route path="/download-pdf" element={<ProtectedRoute requiredRoles={["admin", "superadmin"]}><AdminDashBoard><DownloadPdf /></AdminDashBoard></ProtectedRoute>} />
+       <Route path="/admin-update-profile/:id" element={<ProtectedRoute requiredRoles={["admin", "superadmin"]}><AdminDashBoard><UserProfile /></AdminDashBoard></ProtectedRoute>} />
+       <Route path="/admin-reset-password/:id" element={<ProtectedRoute requiredRoles={["admin", "superadmin"]}><AdminDashBoard><ResetPassword /></AdminDashBoard></ProtectedRoute>} />
 
       {/* User routes */}
       <Route path="/" element={<UserLayout><ProductCard /></UserLayout>} />
       <Route path="/about" element={<UserLayout><About /></UserLayout>} />
       <Route path="/contact" element={<UserLayout><Contact /></UserLayout>} />
+      <Route path="/reset-password/:id" element={<UserLayout><ResetPassword /></UserLayout>} />
+      <Route path="/update-profile/:id" element={<UserLayout><UserProfile /></UserLayout>} />
+      <Route path="/cart/:id" element={<UserLayout><Cart /></UserLayout>} />
 
-      {/* Common route */}
-       <Route path="/reset-password/:id" element={(userRole !== 'user' )? <AdminDashBoard><ResetPassword /></AdminDashBoard> : <UserLayout><ResetPassword /></UserLayout>} />
-       <Route path="/update-profile/:id" element={ (userRole !== 'user' )? <AdminDashBoard><UserProfile /></AdminDashBoard> : <UserLayout><UserProfile /></UserLayout>} /> 
-      {/* Handle a fallback route if needed */}
       <Route path="/notauthorized" element={<NotAuthorized/>} />
           <Route path="*" element={<NotFound />} />
     </Routes>

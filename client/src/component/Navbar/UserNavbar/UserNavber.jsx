@@ -103,7 +103,10 @@ export default function UserNavber() {
                     <img src={profile} className="w-12 h-12 rounded-full" />
                   )}
                   <span>{user.username}</span>
-                  <ReactRouter.Link to="/" className="relative">
+                  <ReactRouter.Link
+                    to={`/cart/${user.id}`}
+                    className="relative"
+                  >
                     <Icon.FaShoppingCart className="text-white text-2xl" />
                     {/* {cartCount > 0 && (
                 <span className="absolute top-0 right-0 bg-red-500 text-white rounded-full w-5 h-5 text-xs flex items-center justify-center">
