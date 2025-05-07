@@ -100,19 +100,19 @@ export default function Cart() {
   };
 
   const placeOrder = () => {
-    navigate("/user/placeorder", {
+    navigate(`/place-order/${totalAmount}`, {
       state: { totalAmount },
     });
   };
 
   const redirecttotreackorder = () => {
-    navigate("/user/ordercard", {
+    navigate(`/order-card`, {
       state: { totalAmount },
     });
   };
 
   const redirecttopurchasehistory = () => {
-    navigate("/user/purchasehistory");
+    navigate(`/purchase-history`);
   };
 
   return (

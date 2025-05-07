@@ -1,28 +1,31 @@
 import axios from "axios";
-import * as React from "react";
-import * as ReactToast from "react-toastify";
+import React, { useEffect, useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useAuth } from "../../lib/context/AuthContext";
 
 export default function OrderRequest() {
-  const [orders, setOrders] = React.useState([]);
+  const [orders, setOrders] = useState([]);
+  const { user } = useAuth();
 
   const fetchData = async () => {
     try {
       const res = await axios.get(
         `${import.meta.env.VITE_BACKEND_URL}/api/admin/all-order-request`
       );
-      if (res.data.data.length) {
-        setOrders(res.data);
+      if (res.data.data) {
+        setOrders(res.data.data.orderData);
       }
     } catch (error) {
-      console.error("Error fetching data:", error); // Log the error for debugging
+      console.error("Error fetching data:", error);
     }
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     fetchData();
   }, []);
 
-  // Function to group orders by order_id
+  // Group orders by order_id
   const groupOrdersById = (orders) => {
     return orders.reduce((acc, order) => {
       (acc[order.order_id] = acc[order.order_id] || []).push(order);
@@ -30,55 +33,43 @@ export default function OrderRequest() {
     }, {});
   };
 
-  const acept = async (orderId) => {
+  const accept = async (orderId) => {
     try {
       const res = await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/acceptrequest`,
-        { orderId }
+        `${import.meta.env.VITE_BACKEND_URL}/api/admin/accept-order`,
+        { orderId, user }
       );
       console.log(res);
-      toast.success(`${orderId} is accepted`);
-
-      // Update the orders state directly if needed
-      setOrders((prevOrders) =>
-        prevOrders.filter((order) => order.order_id !== orderId)
-      );
-
-      // Or refetch data
-      fetchData(); // This should still work if your backend is set up correctly
+      toast.success(`Order ID ${orderId} has been accepted`);
+      setOrders((prev) => prev.filter((order) => order.order_id !== orderId));
     } catch (error) {
       console.error(error);
+      toast.error("Failed to accept the order.");
     }
   };
+
   const cancel = async (orderId) => {
     try {
       const res = await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/api/admin/cancelrequest`,
-        { orderId }
+        `${import.meta.env.VITE_BACKEND_URL}/api/admin/cancel-order`,
+        { orderId, user }
       );
       console.log(res);
-      ReactToast.toast.success(`Order ID ${orderId} has been canceled`);
-
-      // Update the orders state directly
-      setOrders((prevOrders) =>
-        prevOrders.filter((order) => order.order_id !== orderId)
-      );
+      toast.success(`Order ID ${orderId} has been canceled`);
+      setOrders((prev) => prev.filter((order) => order.order_id !== orderId));
     } catch (error) {
       console.error(error);
-      ReactToast.toast.error("Failed to cancel the order.");
+      toast.error("Failed to cancel the order.");
     }
   };
 
   const groupedOrders = groupOrdersById(orders);
+
   return (
     <div className="max-w-full mx-auto bg-white shadow-lg rounded-lg p-6">
-      <ReactToast.ToastContainer
-        position="top-right"
-        autoClose={1000}
-        closeOnClick
-      />
-      {groupedOrders?.length > 0 ? (
-        groupedOrders?.map((orderId) => (
+      <ToastContainer position="top-right" autoClose={1000} closeOnClick />
+      {Object.keys(groupedOrders).length > 0 ? (
+        Object.entries(groupedOrders).map(([orderId, items]) => (
           <div key={orderId} className="mb-6">
             <h2 className="text-2xl font-bold mb-4">Order ID: {orderId}</h2>
             <div className="overflow-x-auto">
@@ -100,7 +91,7 @@ export default function OrderRequest() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200">
-                  {groupedOrders[orderId].map((item) => (
+                  {items.map((item) => (
                     <tr key={item.product_id} className="hover:bg-gray-100">
                       <td className="px-6 py-4 whitespace-nowrap">
                         <img
@@ -127,10 +118,9 @@ export default function OrderRequest() {
                 </tbody>
               </table>
             </div>
-            {/* Buttons for the order */}
             <div className="flex justify-end space-x-4 mt-6">
               <button
-                onClick={() => acept(orderId)}
+                onClick={() => accept(orderId)}
                 className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600"
               >
                 Accept this Order
@@ -145,9 +135,7 @@ export default function OrderRequest() {
           </div>
         ))
       ) : (
-        <div className="max-w-full mx-auto bg-white shadow-lg rounded-lg p-6">
-          No orders found
-        </div>
+        <div className="text-center text-gray-600 mt-6">No orders found</div>
       )}
     </div>
   );

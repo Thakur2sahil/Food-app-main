@@ -39,7 +39,7 @@ export default function UserNavber() {
 
   const handleSearchChange = debounce((e) => {
     setSearchTerm(e.target.value.toLowerCase());
-  }, 1000);
+  }, 500);
 
   return (
     <>

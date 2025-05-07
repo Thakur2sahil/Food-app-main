@@ -22,6 +22,9 @@ import ResetPassword from '../../Pages/Profile/ResetPassword';
 import UserProfile from '../../Pages/Profile/UserProfile';
 import DownloadPdf from '../../Pages/Admin/DownloadPdf';
 import Cart from '../../Pages/User/Cart';
+import PlaceOrder from '../../Pages/User/PlaceOrder';
+import OrderCard from '../../Pages/User/OrderCard';
+import PurchaseHistory from '../../Pages/User/PurchaseHistory';
 
 const AppRouter = () => {
   const { token } = useAuth();
@@ -65,6 +68,10 @@ const AppRouter = () => {
       <Route path="/reset-password/:id" element={<UserLayout><ResetPassword /></UserLayout>} />
       <Route path="/update-profile/:id" element={<UserLayout><UserProfile /></UserLayout>} />
       <Route path="/cart/:id" element={<UserLayout><Cart /></UserLayout>} />
+      <Route path="/place-order/:amount" element={<UserLayout><PlaceOrder/></UserLayout>} />
+      <Route path="/purchase-history/:amount" element={<UserLayout><PlaceOrder/></UserLayout>} />
+      <Route path="/order-card" element={<UserLayout><OrderCard/></UserLayout>} />
+      <Route path="/purchase-history" element={<UserLayout><PurchaseHistory/></UserLayout>} />
 
       <Route path="/notauthorized" element={<NotAuthorized/>} />
           <Route path="*" element={<NotFound />} />

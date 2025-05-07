@@ -25,14 +25,11 @@ export default function Login() {
         localStorage.setItem("islogged", true);
         const role = response.data.emailCheck.role;
         setUser(response.data.emailCheck);
-        if(role ==="user")
-        {
+        if (role === "user") {
           navigate("/");
-        }
-        else  
-        {          
+        } else {
           navigate("/adminhome");
-          }
+        }
       }
     } catch (error) {
       console.log(error.response.data.message);
