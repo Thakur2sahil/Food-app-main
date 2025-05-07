@@ -4,6 +4,9 @@ import ProductCard from "../../controller/UserPanel/ProductCard/ProductCardContr
 import ProductAdd from "../../controller/UserPanel/ProductAdd/ProductAddController.js";
 import CartCount from "../../controller/UserPanel/CartCount/CartCount.js";
 import Cart from "../../controller/UserPanel/CartInfo/CartInfoCOntroller.js";
+import orderPage from "../../controller/UserPanel/OrderPage/OrderPageController.js";
+import OrderInfo from "../../controller/UserPanel/OrderCard/orderInfoController.js";
+import PurchaseHistory from "../../controller/UserPanel/PurchaseHistory/PurchaseHistoryController.js";
 
 const userRoute = Router();
 
@@ -23,5 +26,9 @@ userRoute.post("/cart-count", CartCount);
 userRoute.get("/cart-info/:id", Cart.CartInfo);
 userRoute.post("/cart/increment", Cart.prdAdd);
 userRoute.post("/cart/decrement", Cart.prdSub);
+userRoute.post("/orderpage", orderPage);
+userRoute.post("/order-info", OrderInfo.orederInfo);
+userRoute.post("/purchase-history", PurchaseHistory.purchaseHistory);
+userRoute.post("/submit-rating", PurchaseHistory.raiting);
 
 export default userRoute;
