@@ -42,6 +42,32 @@ const UserAccept = async (req, res) => {
     return res.status(500).json({ error: "Error to accept the user" });
   }
 };
+const UserAcceptAsAdmin = async (req, res) => {
+  const { userId } = req.body;
+  try {
+    const userInfo = await User.findOne({
+      where: {
+        id: userId,
+      },
+      attributes: ["role"],
+      raw: true,
+    });
+
+    userInfo.role = "admin";
+
+    const respnd = await User.update(userInfo, {
+      where: {
+        id: userId,
+      },
+      returning: true,
+      raw: true,
+    });
+
+    return res.status(200).json(respnd[1]);
+  } catch (error) {
+    return res.status(500).json({ error: "Error to accept the user" });
+  }
+};
 
 const UserCacncel = async (req, res) => {
   const { id } = req.params;
@@ -62,4 +88,4 @@ const UserCacncel = async (req, res) => {
   }
 };
 
-export default { UsersNotApproved, UserAccept, UserCacncel };
+export default { UsersNotApproved, UserAccept, UserCacncel, UserAcceptAsAdmin };

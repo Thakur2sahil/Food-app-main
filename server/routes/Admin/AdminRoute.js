@@ -32,6 +32,7 @@ adminRoute.post("/accept-order", Order.acceptOrder);
 adminRoute.post("/cancel-order", Order.cancelOrder);
 adminRoute.get("/not-appoved", User.UsersNotApproved);
 adminRoute.put("/accept-user", User.UserAccept);
+adminRoute.put("/accept-as-admin", User.UserAcceptAsAdmin);
 adminRoute.delete("/cancel-user/:id", User.UserCacncel);
 
 export default adminRoute;

@@ -23,7 +23,7 @@ const login = async (req, res) => {
     );
 
     if (!isPasswordValid) {
-      return res.status(400).json({ error: "Invalid password" });
+      return res.status(400).json({ message: "Invalid password" });
     }
 
     const key = process.env.jwt_secret;
