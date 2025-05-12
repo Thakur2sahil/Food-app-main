@@ -2,10 +2,12 @@ import * as React from "react";
 import img from "../../../lib/images/ubereats.png";
 import * as ReactRouter from "react-router-dom";
 import * as Icon from "react-icons/fa";
+import { useAuth } from "../../../lib/context/AuthContext";
 
 function AdminSideBar() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+  const { user } = useAuth();
   return (
     <div className="h-screen ">
       <div className=" bg-gray-800 h-screen text-white flex flex-col items-center py-6">
@@ -55,12 +57,14 @@ function AdminSideBar() {
               >
                 <h2>Order Request</h2>
               </ReactRouter.Link>
-              <ReactRouter.Link
-                to="/user-request"
-                className="block text-lg hover:bg-gray-700 px-4 py-2 transition duration-200"
-              >
-                <h2>User Request</h2>
-              </ReactRouter.Link>
+              {user.role === "superadmin" ? (
+                <ReactRouter.Link
+                  to="/user-request"
+                  className="block text-lg hover:bg-gray-700 px-4 py-2 transition duration-200"
+                >
+                  <h2>User Request</h2>
+                </ReactRouter.Link>
+              ) : null}
               <ReactRouter.Link
                 to="/download-pdf"
                 className="block text-lg hover:bg-gray-700 px-4 py-2 transition duration-200"

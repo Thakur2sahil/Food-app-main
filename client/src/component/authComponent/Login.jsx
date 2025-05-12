@@ -32,7 +32,8 @@ export default function Login() {
         }
       }
     } catch (error) {
-      console.log(error.response.data.message);
+      ReactToast.toast.error(error.response.data.message);
+      console.log(error.response);
     }
   };
 

@@ -35,11 +35,11 @@ function Signup() {
           },
         }
       );
-      if(response)
-      {
-        navigate(`/login`)
+      if (response) {
+        navigate(`/login`);
       }
     } catch (error) {
+      ReactToast.toast.error(error.response.data.message);
       console.log(error.response.data.message);
     }
   };

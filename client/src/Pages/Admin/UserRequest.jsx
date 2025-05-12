@@ -1,11 +1,13 @@
 import axios from "axios";
 import * as React from "react";
 import * as ReactToast from "react-toastify";
+import { useAuth } from "../../lib/context/AuthContext";
 
 export default function UserRequest() {
   const [data, setData] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState(null);
+  const { user } = useAuth();
 
   const fetchUsers = async () => {
     try {
@@ -28,6 +30,21 @@ export default function UserRequest() {
     try {
       const res = await axios.put(
         `${import.meta.env.VITE_BACKEND_URL}/api/admin/accept-user`,
+        { userId }
+      );
+      if (res.data) {
+        ReactToast.toast.success("User approved successfully");
+        fetchUsers();
+      }
+    } catch (error) {
+      console.error("Error during approval:", error);
+      ReactToast.toast.error("Failed to approve user");
+    }
+  };
+  const handleAcceptasAdmin = async (userId) => {
+    try {
+      const res = await axios.put(
+        `${import.meta.env.VITE_BACKEND_URL}/api/admin/accept-as-admin`,
         { userId }
       );
       if (res.data) {
@@ -70,6 +87,7 @@ export default function UserRequest() {
             <th className="py-2 px-4 border-b">Username</th>
             <th className="py-2 px-4 border-b">Email</th>
             <th className="py-2 px-4 border-b">Actions</th>
+            <th className="py-2 px-4 border-b">Create Admin</th>
           </tr>
         </thead>
         <tbody>
@@ -95,6 +113,14 @@ export default function UserRequest() {
                       Cancel
                     </button>
                   </div>
+                </td>
+                <td className="py-2 px-4 border-b text-center">
+                  <button
+                    onClick={() => handleAcceptasAdmin(user.id)}
+                    className="bg-green-500 text-white py-1 px-3 rounded"
+                  >
+                    Accept as Admin
+                  </button>
                 </td>
               </tr>
             ))
